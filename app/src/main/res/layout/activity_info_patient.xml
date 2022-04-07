@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/secondary_color"
+    android:layout_height="match_parent"
+    android:id="@+id/mainView"
+    android:clipToPadding="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:elevation="0dp"
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:titleTextColor="@color/white"
+            app:subtitleTextColor="@color/white"
+            android:theme="@style/ToolbarTheme"
+            app:contentInsetStartWithNavigation="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <ProgressBar
+        android:id="@+id/pat_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/WhiteControlTheme"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/appbarLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/pat_scrollView"
+        app:layout_constraintTop_toBottomOf="@id/appbarLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="0dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pat_mainCard"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:layout_marginBottom="@dimen/vertical_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/requestFocus"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:padding="16dp"
+                android:clipToPadding="false"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/pat_txName"
+                    android:text="@string/name"
+                    android:textColor="@color/primary_text"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="18sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/pat_txBirthdate"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/birthdate_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/pat_txGender"
+                    android:text="@string/gender_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/pat_txCreatedAt"
+                    android:text="@string/date_creation_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/pat_txLastEdition"
+                    android:text="@string/last_edition_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/pat_txLastPicDate"
+                    android:text="@string/last_picture_date_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/pat_txLastSent"
+                    android:text="@string/last_sent_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/pat_txStatus"
+                    android:text="@string/status_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/pat_txNotes"
+                    android:text="@string/notes_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp" />
+                <View
+                    android:layout_marginTop="20dp"
+                    android:background="@color/black_05p_transp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <LinearLayout
+                        android:id="@+id/pat_btEdit"
+                        android:background="?selectableItemBackground"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            app:tint="?colorAccent"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_edit" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/edit"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="?colorAccent" />
+                    </LinearLayout>
+                    <View
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/black_05p_transp"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent" />
+                    <LinearLayout
+                        android:id="@+id/pat_btSend"
+                        android:background="?selectableItemBackground"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            app:tint="?colorAccent"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_share" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/send"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="?colorAccent" />
+                    </LinearLayout>
+                    <View
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/black_05p_transp"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent" />
+                    <LinearLayout
+                        android:id="@+id/pat_btDelete"
+                        android:background="?selectableItemBackground"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            app:tint="?colorAccent"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_delete" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/delete"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="?colorAccent" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/black_05p_transp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pat_recyclerViewPictures"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/pat_layFullScreenProgress"
+        android:visibility="gone"
+        android:background="@color/black_70p_transp"
+        android:padding="@dimen/horizontal_margin"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/pat_txProgress"
+            android:layout_marginTop="8dp"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/white"
+            android:text="@string/enviando_ficha"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
