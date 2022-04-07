@@ -39,20 +39,10 @@ android {
     }
     flavorDimensions "main"
     productFlavors {
-        production {
-            dimension "main"
-            buildConfigField "String", "ENVIRONMENT", '"PROD"'
-            applicationId "com.esaurio.firstfit"
-        }
         stage {
             dimension "main"
             buildConfigField "String", "ENVIRONMENT", '"TEST"'
-            applicationId "com.esaurio.firstfit.test"
-        }
-        develop {
-            dimension "main"
-            buildConfigField "String", "ENVIRONMENT", '"TEST"'
-            applicationId "com.esaurio.firstfit.test"
+            applicationId "com.esaurio.codingchallenge"
         }
     }
     compileOptions {

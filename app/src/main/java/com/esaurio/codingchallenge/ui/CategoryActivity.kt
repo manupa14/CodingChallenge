@@ -26,6 +26,7 @@ class CategoryActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         Utils.applyEdgeToEdgeConfig(window)
         setContentView(R.layout.activity_info_category)
         setSupportActionBar(toolbar)

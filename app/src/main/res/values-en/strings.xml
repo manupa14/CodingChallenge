@@ -9,6 +9,7 @@
     <string name="aceptar">Accept</string>
     <string name="error_proceso">The action could not be completed. Please try again later.</string>
     <string name="logout">Sign out</string>
+    <string name="email">Email</string>
     <string name="save">Save</string>
     <string name="edit">Edit</string>
     <string name="si">Yes</string>
@@ -30,4 +31,13 @@
     <string name="category_title">Category Detail</string>
     <string name="image">Select an image</string>
     <string name="new_category">New category</string>
+    <string name="email_invalido">Invalid email</string>
+    <string name="code_mail_sent">Email Sent</string>
+    <string name="mail_code_hint">Email Code</string>
+    <string name="pass_min_lenght">Pass Min Length</string>
+    <string name="repeat_pass">Repeat Pass</string>
+    <string name="already_have_code">Code already created</string>
+    <string name="lastname">Last Name</string>
+    <string name="phone">Phone</string>
+    <string name="register">Register</string>
 </resources>

@@ -117,10 +117,10 @@ class MainActivity : BaseActivity(), CategoriesAdapter.Listener {
         loadData()
     }
 
-    private fun loadData(page : Int = 0){
+    private fun loadData(page : Int = 1){
         turn ++
         val myTurn = turn
-        if (page == 0){
+        if (page == 1){
             adapter.items.clear()
         }
         adapter.loading = true

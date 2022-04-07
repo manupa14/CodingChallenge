@@ -15,8 +15,6 @@ import com.esaurio.codingchallenge.data.model.SaveCategoryResultTO
 import com.esaurio.codingchallenge.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_form_category.*
-import kotlinx.android.synthetic.main.activity_form_category.requestFocus
-import kotlinx.android.synthetic.main.activity_form_category.toolbar
 import kotlinx.android.synthetic.main.activity_info_category.*
 import java.io.*
 import java.util.*
@@ -29,12 +27,11 @@ class CategoryFormActivity : BaseActivity() {
     private var file: File? = null
     lateinit var imagen: ImageView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Utils.applyEdgeToEdgeConfig(window)
         setContentView(R.layout.activity_form_category)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(formToolbar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainView)) { v, windowInsetsCompat ->
             v.setPadding(0, windowInsetsCompat.systemWindowInsetTop, 0, 0)
             windowInsetsCompat
@@ -57,9 +54,10 @@ class CategoryFormActivity : BaseActivity() {
 
         category?.let { loadForm(it) }
 
-        requestFocus.requestFocus()
+        formRequestFocus.requestFocus()
 
         configureForm()
+
     }
 
     private fun loadForm(category: Category) {
@@ -104,7 +102,7 @@ class CategoryFormActivity : BaseActivity() {
         fpat_edName.setBackgroundResource(
             if (name.isEmpty()) R.drawable.edit_text_error else R.drawable.edit_text_background
         )
-        requestFocus.requestFocus()
+        formRequestFocus.requestFocus()
 
         if (name.isNotEmpty()) {
             fpat_btSave.hide()

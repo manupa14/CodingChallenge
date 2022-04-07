@@ -4,6 +4,7 @@
     <string name="password">Contraseña</string>
     <string name="login">Ingresar</string>
     <string name="name">Nombre</string>
+    <string name="email">Email</string>
     <string name="continuar">Continuar</string>
     <string name="invalid_login">Los datos de acceso no son correctos.</string>
     <string name="error_conexion">No hay conexión a internet</string>
@@ -30,4 +31,15 @@
     <string name="enter_username_login_msg">Ingrese su nombre de usuario para autenticarse.</string>
     <string name="category_title">Detalle de Categoría</string>
     <string name="image">Seleccionar una imagen</string>
+    <string name="email_invalido">Invalid email</string>
+    <string name="code_mail_sent">Email Sent</string>
+    <string name="mail_code_hint">Email Code</string>
+    <string name="codigo">Code</string>
+    <string name="pass_min_lenght">Pass Min Length</string>
+    <string name="repeat_pass">Repeat Pass</string>
+    <string name="pass_dont_match">Passwords don\'t match</string>
+    <string name="already_have_code">Code already created</string>
+    <string name="lastname">Last Name</string>
+    <string name="phone">Phone</string>
+    <string name="register">Register</string>
 </resources>
