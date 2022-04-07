@@ -2,11 +2,13 @@ package com.esaurio.codingchallenge.ui
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.ImageView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
@@ -16,20 +18,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.esaurio.codingchallenge.R
 import com.esaurio.codingchallenge.data.Prefs
 import com.esaurio.codingchallenge.data.api.CodingChallengeAPI
-import com.esaurio.codingchallenge.data.model.Patient
-import com.esaurio.codingchallenge.ui.adapters.PatientsAdapter
+import com.esaurio.codingchallenge.data.api.ImagesManager
+import com.esaurio.codingchallenge.data.model.Category
+import com.esaurio.codingchallenge.ui.adapters.CategoriesAdapter
 import com.esaurio.codingchallenge.utils.*
+import kotlinx.android.synthetic.main.activity_info_category.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.toolbar
+import java.io.File
 import kotlin.math.roundToInt
 
-class MainActivity : BaseActivity(), PatientsAdapter.Listener {
+class MainActivity : BaseActivity(), CategoriesAdapter.Listener {
     private var scrollListener : EndlessRecyclerViewScrollListener? = null
     private var lastLoadedPage = 0
-
     private var turn : Int = 0
 
-    private val adapter : PatientsAdapter by lazy {
-        PatientsAdapter(layoutInflater)
+    private val adapter : CategoriesAdapter by lazy {
+        CategoriesAdapter(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +64,7 @@ class MainActivity : BaseActivity(), PatientsAdapter.Listener {
             windowInsetsCompat
         }
         ViewCompat.setOnApplyWindowInsetsListener(pats_btAdd) { v, windowInsetsCompat ->
-            val layoutParams = v.layoutParams as ConstraintLayout.LayoutParams
+            val layoutParams = v.layoutParams as CoordinatorLayout.LayoutParams
             layoutParams.setMargins(
                 layoutParams.leftMargin,
                 layoutParams.topMargin,
@@ -104,7 +109,7 @@ class MainActivity : BaseActivity(), PatientsAdapter.Listener {
         this.scrollListener = scrollListener
 
         pats_btAdd.setOnClickListener {
-            startActivityForResult(Intent(this, PatientFormActivity::class.java), RC_NEW_PATIENT)
+            startActivityForResult(Intent(this, CategoryFormActivity::class.java), RC_NEW_CATEGORY)
         }
         adapter.listener = this
 
@@ -121,8 +126,8 @@ class MainActivity : BaseActivity(), PatientsAdapter.Listener {
         adapter.loading = true
         pats_refreshLayout.isRefreshing = false
 
-        CodingChallengeAPI.SHARED_INSTANCE.getPatients(pats_edSearch.text.toString(),page,object : CodingChallengeAPI.DataListener<List<Patient>>{
-            override fun onResponse(data: List<Patient>) {
+        CodingChallengeAPI.SHARED_INSTANCE.getCategories(pats_edSearch.text.toString(),page,object : CodingChallengeAPI.DataListener<List<Category>>{
+            override fun onResponse(data: List<Category>) {
                 if (turn == myTurn){
                     lastLoadedPage = page
                     adapter.items.addAll(data)
@@ -159,29 +164,29 @@ class MainActivity : BaseActivity(), PatientsAdapter.Listener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
-            RC_VIEW_PATIENT -> loadData()
-            RC_NEW_PATIENT -> {
+            RC_VIEW_CATEGORY -> loadData()
+            RC_NEW_CATEGORY -> {
                 loadData()
                 val id = data?.getIntExtra("id",0)
                 if (id != null && id != 0){
-                    PatientActivity.start(this, id, RC_VIEW_PATIENT)
+                    CategoryActivity.start(this, id, RC_VIEW_CATEGORY)
                 }
             }
         }
     }
 
     companion object {
-        private const val RC_NEW_PATIENT = 1
-        private const val RC_VIEW_PATIENT = 2
+        private const val RC_NEW_CATEGORY = 1
+        private const val RC_VIEW_CATEGORY = 2
     }
 
-    override fun onItemSelected(item: Patient) {
-        PatientActivity.start(this, item.id, RC_VIEW_PATIENT)
+    override fun onItemSelected(item: Category) {
+        CategoryActivity.start(this, item.id, RC_VIEW_CATEGORY)
     }
 
-    override fun onDeleteItem(item: Patient) {
-        AlertFactory.showQuestion(this, getString(R.string.confirm_delete_patient), DialogInterface.OnClickListener { _, _ ->
-            CodingChallengeAPI.SHARED_INSTANCE.deletePatient(item.id)
+    override fun onDeleteItem(item: Category) {
+        AlertFactory.showQuestion(this, getString(R.string.confirm_delete_category), DialogInterface.OnClickListener { _, _ ->
+            CodingChallengeAPI.SHARED_INSTANCE.deleteCategory(item.id)
             adapter.items.remove(item)
             adapter.notifyDataSetChanged()
             val noData = adapter.items.isEmpty()
@@ -193,5 +198,4 @@ class MainActivity : BaseActivity(), PatientsAdapter.Listener {
     override fun onBackPressed() {
         ActivityCompat.finishAffinity(this)
     }
-
 }

@@ -4,7 +4,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.esaurio.codingchallenge.data.Prefs
 import com.esaurio.codingchallenge.data.api.CodingChallengeAPI
 import com.esaurio.codingchallenge.data.model.LoginResultTO
-import com.esaurio.codingchallenge.data.model.Patient
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,17 +48,17 @@ class RefreshTokenInstrumentedTest {
     }
 
     private fun callApiWithExpiredToken(){
-        CodingChallengeAPI.SHARED_INSTANCE.getPatients("",0,object : CodingChallengeAPI.DataListener<List<Patient>>{
-            override fun onResponse(data: List<Patient>) {
-                latch.countDown()
-            }
-
-            override fun onError(code: Int, message: String?) {
-                if (code == 401)
-                    fail("Token not refreshed")
-                else
-                    fail(" Service not reachable. Code: $code. Message: ${message ?: ""}")
-            }
-        })
+//        CodingChallengeAPI.SHARED_INSTANCE.getPatients("",0,object : CodingChallengeAPI.DataListener<List<Patient>>{
+//            override fun onResponse(data: List<Patient>) {
+//                latch.countDown()
+//            }
+//
+//            override fun onError(code: Int, message: String?) {
+//                if (code == 401)
+//                    fail("Token not refreshed")
+//                else
+//                    fail(" Service not reachable. Code: $code. Message: ${message ?: ""}")
+//            }
+//        })
     }
 }

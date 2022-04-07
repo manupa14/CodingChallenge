@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="server_url" translatable="false">https://codingchallenge.quartzsales.com/WS/</string>
+    <string name="server_url" translatable="false">http://192.168.0.100:62063/</string>
+    <!--<string name="server_url" translatable="false">https://codingchallenge.quartzsales.com/WS/</string>-->
+    <!--<string name="server_url" translatable="false">https://firstfit.quartzsales.com/WS_V2/</string>-->
 </resources>

@@ -37,7 +37,6 @@ class LoginActivity : BaseActivity() {
         login_btLogout.hide()
         login_progressBar.hide()
         login_viewPassword.hide()
-        login_btForgotPass.hide()
         login_txError.hide()
         login_btLogin.setText(R.string.continuar)
 
@@ -57,26 +56,15 @@ class LoginActivity : BaseActivity() {
                 if (login_viewPassword.isVisible){
                     login_txEnterMail.show()
                     login_viewPassword.hide()
-                    login_btForgotPass.hide()
                     login_btLogin.setText(R.string.continuar)
                 }
             }else{
                 if (!login_viewPassword.isVisible){
                     login_txEnterMail.hide()
                     login_viewPassword.show()
-                    login_btForgotPass.show()
                     login_btLogin.setText(R.string.login)
                 }
             }
-        }
-
-        login_btForgotPass.setOnClickListener {
-            val intent = Intent(this,RecoverPasswordActivity::class.java)
-            intent.putExtra("email", login_edEmail.text.toString())
-            val options = ViewCompat.getTransitionName(login_viewEmail)?.let {
-                ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity, login_viewEmail, it)
-            }
-            ActivityCompat.startActivityForResult(this@LoginActivity,intent, RC_RECOVER_PASS, options?.toBundle())
         }
 
         val loggedUserEmail = Prefs.sharedInstance.userEmail
@@ -87,7 +75,6 @@ class LoginActivity : BaseActivity() {
             login_edEmail.setText(loggedUserEmail)
             login_edEmail.isEnabled = false
             login_viewPassword.show()
-            login_btForgotPass.show()
             login_btLogout.show()
             login_btLogin.setText(R.string.login)
             login_btLogout.setOnClickListener {
@@ -113,7 +100,6 @@ class LoginActivity : BaseActivity() {
         if (email.isNotEmpty() && pass.isNotEmpty()){
             login_edPassword.isEnabled = false
             login_edEmail.isEnabled = false
-            login_btForgotPass.hide()
             login_progressBar.show()
             login_btLogin.hide()
             login_btLogout.hide()
@@ -139,7 +125,6 @@ class LoginActivity : BaseActivity() {
 
                 private fun showError(errorMessage: String) {
                     login_txError.text = errorMessage
-                    login_btForgotPass.show()
                     login_progressBar.hide()
                     login_btLogin.show()
                     login_txError.show()
@@ -153,7 +138,7 @@ class LoginActivity : BaseActivity() {
 
     private fun validateEmail(){
         val email = login_edEmail.text.toString()
-        if (email.isValidEmail()){
+        if (email.isUsernameValid()){
             login_edEmail.setBackgroundResource(R.drawable.edit_text_background)
             login_edEmail.isEnabled = false
             Utils.hideSoftKeyboard(login_edEmail)
@@ -169,15 +154,11 @@ class LoginActivity : BaseActivity() {
                         validEmail = email
                         login_txEnterMail.hide()
                         login_viewPassword.show()
-                        login_btForgotPass.show()
                         login_btLogin.setText(R.string.login)
                     }else{
-                        val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                        intent.putExtra("email", email)
-                        val options = ViewCompat.getTransitionName(login_viewEmail)?.let {
-                            ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity, login_viewEmail, it)
-                        }
-                        ActivityCompat.startActivity(this@LoginActivity,intent, options?.toBundle())
+                        login_edEmail.setBackgroundResource(R.drawable.edit_text_error)
+                        login_txError.setText(R.string.username_invalido)
+                        login_txError.show()
                     }
                 }
 
@@ -192,7 +173,7 @@ class LoginActivity : BaseActivity() {
 
         }else{
             login_edEmail.setBackgroundResource(R.drawable.edit_text_error)
-            login_txError.setText(R.string.email_invalido)
+            login_txError.setText(R.string.username_invalido)
             login_txError.show()
         }
 
@@ -205,7 +186,6 @@ class LoginActivity : BaseActivity() {
                 validEmail = email
                 login_edEmail.setText(email)
                 login_viewPassword.show()
-                login_btForgotPass.show()
                 login_btLogin.setText(R.string.login)
             }
         }

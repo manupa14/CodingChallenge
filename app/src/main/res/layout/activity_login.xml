@@ -61,7 +61,7 @@
                     android:textSize="12sp"
                     android:textColor="@color/secondary_text"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/enter_mail_login_msg" />
+                    android:text="@string/enter_username_login_msg" />
 
                 <TextView
                     android:id="@+id/login_txSessionExpired"
@@ -81,16 +81,14 @@
                         android:id="@+id/login_edEmail"
                         android:gravity="end|center_vertical"
                         android:inputType="textEmailAddress"
-                        android:autofillHints=".AUTOFILL_HINT_EMAIL_ADDRESS"
                         style="@style/RoundedEditText"
                         android:textSize="14sp"
                         android:paddingLeft="100sp"
-                        android:hint="_____@____.___"
                         android:textColor="@color/primary_text"
                         android:imeOptions="actionDone"
                         android:layout_width="match_parent"/>
                     <TextView
-                        android:text="@string/email"
+                        android:text="@string/username"
                         android:layout_marginLeft="16dp"
                         android:layout_centerVertical="true"
                         android:textSize="14sp"
@@ -150,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/login_btForgotPass"
                     android:background="?selectableItemBackground"
                     android:layout_marginTop="16dp"
@@ -159,7 +157,7 @@
                     android:textColor="?colorAccent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp" />
+                    android:padding="5dp" />-->
                 <TextView
                     android:id="@+id/login_btLogout"
                     android:background="?selectableItemBackground"

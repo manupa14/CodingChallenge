@@ -9,6 +9,7 @@ import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.io.File
 import java.lang.Exception
 
 
@@ -17,7 +18,7 @@ class ImagesManager {
         val sharedInstance by lazy { ImagesManager() }
     }
 
-    private var client = OkHttpClient.Builder()
+        private var client = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val builder = chain.request().newBuilder()
                 .addHeader("AppVersion", BuildConfig.VERSION_NAME)
@@ -54,5 +55,7 @@ class ImagesManager {
             })
     }
 
-
+    fun showImage(file : File, image : ImageView) {
+        picasso.load(file).fit().into(image)
+    }
 }

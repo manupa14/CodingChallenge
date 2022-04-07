@@ -129,36 +129,6 @@ class JSONUtils {
         queue.add(request)
     }
 
-    fun postNoValidations(apiPath: String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener?, json: JSONObject?, authorized: Boolean = true) {
-        val api = if(authorized) apiURL else authURL
-        val request: JsonRequest<*> = object : JsonRequest<String>(
-                Method.POST,
-                api + apiPath,
-                json?.toString() ?: "",
-                responseListener,
-                errorListener
-        ) {
-            @Throws(AuthFailureError::class)
-            override fun getHeaders(): Map<String, String> {
-                return getRequestHeaders(super.getHeaders())
-            }
-
-            override fun parseNetworkResponse(response: NetworkResponse): Response<String> {
-                try {
-                    val utf8String = String(response.data, Charsets.UTF_8)
-                    if(BuildConfig.DEBUG)
-                        Log.d("JSONUtils","Code: "+response.statusCode+" Response: "+utf8String)
-                    return Response.success(utf8String, HttpHeaderParser.parseCacheHeaders(response))
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-                return Response.success("", HttpHeaderParser.parseCacheHeaders(response))
-            }
-        }
-        request.retryPolicy = retryPolicy
-        queue.add(request)
-    }
-
     fun postArrayResponse(apiPath: String, responseListener: Response.Listener<JSONArray>, errorListener: Response.ErrorListener?, json: JSONObject, authorized: Boolean = true) {
         val api = if(authorized) apiURL else authURL
         val request: JsonRequest<*> = object : JsonRequest<JSONArray>(
@@ -191,13 +161,13 @@ class JSONUtils {
         queue.add(request)
     }
 
-    fun uploadFile(file : File,responseListener: Response.Listener<String>, errorListener: Response.ErrorListener?){
+    fun uploadFile(file : File, endPoint : String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener?){
         val request = VolleyFileRequest(
                 file,
-                apiURL + "Upload",
+                apiURL + endPoint,
                 responseListener,
                 getErrorListener(true, errorListener) {
-                    uploadFile(file, responseListener, errorListener)
+                    uploadFile(file, endPoint, responseListener, errorListener)
                 }
         )
         request.retryPolicy = retryPolicy

@@ -1,13 +1,8 @@
 package com.esaurio.codingchallenge.utils
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.res.Resources
-import android.net.Uri
 import android.os.Build
-import android.provider.Settings
-import android.util.Patterns
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
@@ -41,22 +36,10 @@ class Utils {
                 }
             }
         }
-
-        fun openAppsSettings(ctx: Activity, requestCode: Int) {
-            try {
-                val intent = Intent()
-                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                val uri = Uri.fromParts("package", ctx.packageName, null)
-                intent.data = uri
-                ctx.startActivityForResult(intent, requestCode)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 }
 
-fun CharSequence?.isValidEmail() = !this.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+fun CharSequence?.isUsernameValid() = !this.isNullOrEmpty()
 
 @ColorInt
         /**
