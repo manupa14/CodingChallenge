@@ -117,16 +117,16 @@ class MainActivity : BaseActivity(), CategoriesAdapter.Listener {
         loadData()
     }
 
-    private fun loadData(page : Int = 1){
+    private fun loadData(page : Int = 0){
         turn ++
         val myTurn = turn
-        if (page == 1){
+        if (page == 0){
             adapter.items.clear()
         }
         adapter.loading = true
         pats_refreshLayout.isRefreshing = false
 
-        CodingChallengeAPI.SHARED_INSTANCE.getCategories(pats_edSearch.text.toString(),page,object : CodingChallengeAPI.DataListener<List<Category>>{
+        CodingChallengeAPI.SHARED_INSTANCE.getCategories(pats_edSearch.text.toString(),page,object : CodingChallengeAPI.DataListener<List<Category>> {
             override fun onResponse(data: List<Category>) {
                 if (turn == myTurn){
                     lastLoadedPage = page
@@ -142,7 +142,7 @@ class MainActivity : BaseActivity(), CategoriesAdapter.Listener {
                 if (turn == myTurn)
                     adapter.loading = false
             }
-        })
+        }, applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

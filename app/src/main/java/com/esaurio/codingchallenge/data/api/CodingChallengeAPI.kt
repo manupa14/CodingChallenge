@@ -1,6 +1,10 @@
 package com.esaurio.codingchallenge.data.api
 
+import android.content.Context
+import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.esaurio.codingchallenge.data.model.*
@@ -10,6 +14,8 @@ import com.google.gson.reflect.TypeToken
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class CodingChallengeAPI {
     companion object {
@@ -72,7 +78,7 @@ class CodingChallengeAPI {
         }
     }
 
-    fun getCategories(search : String, page : Int, listener : DataListener<List<Category>>){
+    fun getCategories(search : String, page : Int, listener : DataListener<List<Category>>, applicationContext: Context){
         try {
             val json = JSONObject()
             json.put("Page",page)
@@ -83,6 +89,12 @@ class CodingChallengeAPI {
                     var res: List<Category>? = null
                     try {
                         res = Gson().fromJson<List<Category>>(response.toString(), object : TypeToken<List<Category>>() {}.type)
+
+                        res.forEach {
+                            if(!it.image.isNullOrEmpty()) {
+                                this.downloadFile(it.image!!, applicationContext)
+                            }
+                        }
                     } catch (e: JsonSyntaxException) {
                         e.printStackTrace()
                     }
@@ -104,7 +116,7 @@ class CodingChallengeAPI {
             json.put("Name",name)
             json.put("Image", image)
             JSONUtils.sharedInstance.post(
-                    "SaveCategory",
+                    "CreateOrUpdateCategory",
                     Response.Listener { response ->
                         var res: SaveCategoryResultTO? = null
                         try {
@@ -162,6 +174,34 @@ class CodingChallengeAPI {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+    }
+
+    fun downloadFile(fileName: String, applicationContext: Context): File {
+        val json = JSONObject()
+        json.put("ImagePath",fileName)
+        var myExternalFile: File = File(applicationContext.getExternalFilesDir(null), fileName )
+
+        if(!myExternalFile.exists()) {
+            JSONUtils.sharedInstance.post(
+                "DownloadImage",
+                Response.Listener { response ->
+                    val base64Data = response.getString("Data")
+                    val dataBytes = Base64.decode(base64Data, Base64.DEFAULT)
+
+                    try {
+                        val fileOutPutStream = FileOutputStream(myExternalFile)
+                        fileOutPutStream.write(dataBytes)
+                        fileOutPutStream.close()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                },
+                getErrorListener(),
+                json
+            )
+        }
+
+        return myExternalFile
     }
 
     fun uploadFile(categoryId : Int?, categoryName : String, file : File, listener: DataListener<SaveCategoryResultTO>){

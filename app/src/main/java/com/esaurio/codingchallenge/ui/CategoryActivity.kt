@@ -94,7 +94,8 @@ class CategoryActivity : BaseActivity() {
         pat_progressBar.hide()
         pat_scrollView.show()
         pat_txName.text = String.format("%s", category.name)
-        ImagesManager.sharedInstance.showImage(category.image.toString(), imagen)
+        val downloadedFile= CodingChallengeAPI.SHARED_INSTANCE.downloadFile(category.image.toString(), this.applicationContext)
+        ImagesManager.sharedInstance.showImage(downloadedFile, imagen)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

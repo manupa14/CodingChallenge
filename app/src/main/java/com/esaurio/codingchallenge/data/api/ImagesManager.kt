@@ -33,6 +33,7 @@ class ImagesManager {
 
     private val picasso : Picasso by lazy {
         Picasso.Builder(MyApplication.instance)
+            .loggingEnabled(true)
             .downloader(OkHttp3Downloader(client))
             .build()
     }

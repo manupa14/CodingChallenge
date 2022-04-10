@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.esaurio.codingchallenge.R
+import com.esaurio.codingchallenge.data.api.CodingChallengeAPI
 import com.esaurio.codingchallenge.data.api.ImagesManager
 import com.esaurio.codingchallenge.data.model.Category
 import kotlinx.android.synthetic.main.row_category.view.*
+import java.io.File
 
 class CategoriesAdapter(
     private val layoutInflater: LayoutInflater
@@ -75,7 +77,9 @@ class CategoriesAdapter(
         fun bind(item : Category){
             val picturePath = item.image
             if (picturePath != null){
-                ImagesManager.sharedInstance.showImage(picturePath, imMainPicture, R.color.grey4)
+                val imageFile = File(layoutInflater.context.getExternalFilesDir(null), picturePath)
+
+                ImagesManager.sharedInstance.showImage(imageFile, imMainPicture)
             }else{
                 imMainPicture.setImageResource(R.drawable.ic_person_circle)
             }
