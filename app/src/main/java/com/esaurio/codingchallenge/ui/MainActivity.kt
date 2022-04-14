@@ -2,37 +2,39 @@ package com.esaurio.codingchallenge.ui
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.ImageView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esaurio.codingchallenge.R
 import com.esaurio.codingchallenge.data.Prefs
 import com.esaurio.codingchallenge.data.api.CodingChallengeAPI
-import com.esaurio.codingchallenge.data.api.ImagesManager
 import com.esaurio.codingchallenge.data.model.Category
 import com.esaurio.codingchallenge.ui.adapters.CategoriesAdapter
 import com.esaurio.codingchallenge.utils.*
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_info_category.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
-import java.io.File
 import kotlin.math.roundToInt
+
 
 class MainActivity : BaseActivity(), CategoriesAdapter.Listener {
     private var scrollListener : EndlessRecyclerViewScrollListener? = null
     private var lastLoadedPage = 0
     private var turn : Int = 0
-
+    private lateinit var actionBarDrawerToggle : ActionBarDrawerToggle
     private val adapter : CategoriesAdapter by lazy {
         CategoriesAdapter(layoutInflater)
     }
@@ -113,8 +115,44 @@ class MainActivity : BaseActivity(), CategoriesAdapter.Listener {
         }
         adapter.listener = this
 
+        var drawerLayout = findViewById<DrawerLayout>(R.id.mainDrawerLayout)
+        actionBarDrawerToggle =
+            ActionBarDrawerToggle(this, drawerLayout, R.string.navAbrir, R.string.navCerrar)
+
+        // pass the Open and Close toggle for the drawer layout listener
+        // to toggle the button
+        drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle.syncState()
+
+        var navigationView = this.findViewById<NavigationView>(R.id.mainNavigationView)
+
+        navigationView.setNavigationItemSelectedListener { it: MenuItem ->
+            when (it.itemId) {
+                R.id.mainNavigationCategories -> openCategories()
+                R.id.mainNavigationLogout-> logout()
+                else -> {
+                    true
+                }
+            }
+        }
+
+        // to make the Navigation drawer icon always appear on the action bar
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         pats_layNoData.hide()
         loadData()
+    }
+
+    private fun openCategories(): Boolean {
+        return true
+    }
+
+    private fun logout(): Boolean {
+        AlertFactory.showQuestion(this, getString(R.string.confirm_logout), DialogInterface.OnClickListener { _, _ ->
+            Prefs.sharedInstance.logout()
+            resetApp()
+        })
+
+        return true
     }
 
     private fun loadData(page : Int = 0){
@@ -152,10 +190,10 @@ class MainActivity : BaseActivity(), CategoriesAdapter.Listener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_logout){
-            AlertFactory.showQuestion(this, getString(R.string.confirm_logout), DialogInterface.OnClickListener { _, _ ->
-                Prefs.sharedInstance.logout()
-                resetApp()
-            })
+            this.logout()
+
+            return true
+        } else if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)

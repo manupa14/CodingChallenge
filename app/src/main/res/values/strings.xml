@@ -37,9 +37,11 @@
     <string name="codigo">Code</string>
     <string name="pass_min_lenght">Pass Min Length</string>
     <string name="repeat_pass">Repeat Pass</string>
-    <string name="pass_dont_match">Passwords don\'t match</string>
+    <string name="pass_dont_match">Las contraseñas no coinciden</string>
     <string name="already_have_code">Code already created</string>
     <string name="lastname">Last Name</string>
     <string name="phone">Phone</string>
     <string name="register">Register</string>
+    <string name="navAbrir">Abrir</string>
+    <string name="navCerrar">Cerrar</string>
 </resources>

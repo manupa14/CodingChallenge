@@ -40,4 +40,7 @@
     <string name="lastname">Last Name</string>
     <string name="phone">Phone</string>
     <string name="register">Register</string>
+    <string name="navAbrir">Open</string>
+    <string name="navCerrar">Close</string>
+    <string name="pass_dont_match">Passwords don\'t match</string>
 </resources>
