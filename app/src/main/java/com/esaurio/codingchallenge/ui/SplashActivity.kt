@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.esaurio.codingchallenge.BuildConfig
 import com.esaurio.codingchallenge.R
 import com.esaurio.codingchallenge.data.Prefs
-import com.esaurio.codingchallenge.data.api.CodingChallengeAPI
 
 class SplashActivity : AppCompatActivity() {
 
@@ -58,7 +57,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun startApp(){
         if (Prefs.sharedInstance.userEmail != null && !Prefs.sharedInstance.isTokenExpired){
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this,CategoriesActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
             finish()
         }else{

@@ -107,7 +107,7 @@ class LoginActivity : BaseActivity() {
                 override fun onResponse(data: LoginResultTO) {
                     if (data.isResultOK){
                         Prefs.sharedInstance.userEmail = email
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        val intent = Intent(this@LoginActivity, CategoriesActivity::class.java)
                         val pair1 : Pair<View?, String?>? = ViewCompat.getTransitionName(login_imLogo)?.let { Pair(login_imLogo, it) }
                         val options = if (pair1 != null){
                             ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity, pair1)

@@ -31,7 +31,7 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name="com.esaurio.codingchallenge.ui.MainActivity"
+        <activity android:name="com.esaurio.codingchallenge.ui.CategoriesActivity"
             android:screenOrientation="sensorPortrait" />
         <activity android:name="com.esaurio.codingchallenge.ui.LoginActivity"
             android:screenOrientation="sensorPortrait"/>
