@@ -40,6 +40,8 @@ class CategoriesActivity : BaseActivity(), CategoriesAdapter.Listener {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        configureDrawer()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainView)) { v, windowInsetsCompat ->
             v.setPadding(0, windowInsetsCompat.systemWindowInsetTop, 0, 0)
             windowInsetsCompat
@@ -108,8 +110,6 @@ class CategoriesActivity : BaseActivity(), CategoriesAdapter.Listener {
             startActivityForResult(Intent(this, CategoryFormActivity::class.java), RC_NEW_CATEGORY)
         }
         adapter.listener = this
-
-        configureDrawer()
 
         pats_layNoData.hide()
         loadData()

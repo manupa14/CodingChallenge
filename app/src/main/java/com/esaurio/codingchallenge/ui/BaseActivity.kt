@@ -81,8 +81,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+        if (this::actionBarDrawerToggle.isInitialized && actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true
         } else if (item.itemId == android.R.id.home){
             onBackPressed()
